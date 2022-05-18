@@ -28,13 +28,21 @@ const userInitial: User = {
 export interface State {
     user: User | undefined
     office: Office | undefined
+    reservation: Reservation
     additionalInfo: boolean
+}
+
+const initialReservation: Reservation = {
+    id:'',
+    officeId: '',
+    userId: '',
 }
 
 
 const initialState: State = {
     user: undefined,
     office: undefined,
+    reservation: initialReservation,
     additionalInfo: false
 }
 
@@ -78,9 +86,9 @@ const reservationSlice = createSlice({
         },
         updateReservationField(
             state: State,
-            action: PayloadAction<{ filedName: keyof User; val: FiledValueType }>
+            action: PayloadAction<{ filedName: keyof Reservation; val: FiledValueType }>
         ) {
-            state.user = { ...state.user, [action.payload.filedName]: action.payload.val }
+            state.reservation = { ...state.reservation, [action.payload.filedName]: action.payload.val }
         },
         setCurrentOffice(state: State, action: PayloadAction<{ user: Office | undefined }>) {
             state.user = action.payload.user
