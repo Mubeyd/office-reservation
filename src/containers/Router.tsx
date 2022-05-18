@@ -3,6 +3,8 @@ import Login from "../pages/Login"
 import Header from "../components/Header"
 import OfficesList from "../pages/OfficesList"
 import Footer from "../components/Footer"
+import Page404 from "../pages/Page404"
+import LandingPage from "../pages/LandingPage"
 
 export interface Props {}
 
@@ -12,10 +14,10 @@ const RouterComp = ({}: Props) => {
             <Header />
             <main>
                 <Routes>
-                    <Route path="/" element={<h1>Welcome to Office Reservation App</h1>} />
+                    <Route path="/" element={<LandingPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/OfficesList" element={<OfficesList />} />
-                    <Route path="*" element={<h1>Page Not Found 404</h1>} />
+                    <Route path="*" element={<Page404 />} />
                 </Routes>
             </main>
             <Footer />
