@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import Login from "../pages/Login"
 import Header from "../components/Header"
 import OfficesList from "../pages/OfficesList"
+import Footer from "../components/Footer"
 
 export interface Props {}
 
@@ -18,6 +19,7 @@ const RouterComp = ({}: Props) => {
                     <Route path="*" element={<h1>Page Not Found 404</h1>} />
                 </Routes>
             </main>
+            <Footer />
         </div>
     )
 }
