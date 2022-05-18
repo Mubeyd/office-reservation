@@ -1,0 +1,45 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Muhammed",
+            "secondName": "Ubeyd",
+            "email": "asd@asd.com",
+            "password": "password"
+        }
+    ],
+    "offices": [
+        {
+            "id": 1,
+            "name": "Executive Suites",
+            "address": "asd asd",
+            "price": 2000
+        },
+        {
+            "id": 1,
+            "name": "Traditional Space",
+            "address": "dsa dsa",
+            "price": 1800
+        }
+    ],
+    "reservations": [
+        {
+            "id": 1,
+            "userId": 1,
+            "officeId": 1,
+            "date": "Wed May 18 2022",
+            "cost": 2000,
+            "period": 3,
+            "periodType": "month"
+        },
+        {
+            "id": 2,
+            "userId": 1,
+            "officeId": 2,
+            "date": "Wed May 12 2021",
+            "cost": 1800,
+            "period": 5,
+            "periodType": "month"
+        }
+    ]
+}

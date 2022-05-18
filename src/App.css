@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+footer {
+  text-align: center;
+  color: gray;
+  padding: 20px 0 20px 0;
+  flex-shrink: 0;
+  background-color: gainsboro;
+  position:absolute;
+  width:100%;
+  bottom: 0;
+}
