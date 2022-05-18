@@ -4,9 +4,9 @@ import Footer from "../components/Footer"
 import Header from "../components/Header"
 import CircularIndeterminate from "../components/Spinner"
 import LandingPage from "../pages/LandingPage"
-import Login from "../pages/Login"
 import OfficesList from "../pages/OfficesList"
 import Page404 from "../pages/Page404"
+import SignUpPage from "../pages/SignUpPage"
 
 export interface Props {}
 
@@ -33,7 +33,7 @@ const RouterComp = ({}: Props) => {
             <main>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/SignUpPage" element={<SignUpPage />} />
                     <Route path="/OfficesList" element={<OfficesList />} />
                     <Route path="*" element={<Page404 />} />
                 </Routes>
