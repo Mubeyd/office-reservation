@@ -6,6 +6,8 @@ import CircularIndeterminate from "../components/Spinner"
 import LandingPage from "../pages/LandingPage"
 import OfficesList from "../pages/OfficesList"
 import Page404 from "../pages/Page404"
+import ReservationsList from "../pages/ReservationsList"
+import SignIn from "../pages/SignIn"
 import SignUpPage from "../pages/SignUpPage"
 
 export interface Props {}
@@ -33,9 +35,13 @@ const RouterComp = ({}: Props) => {
             <main>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/LandingPage" element={<LandingPage />} />
                     <Route path="/SignUpPage" element={<SignUpPage />} />
-                    <Route path="/OfficesList" element={<OfficesList />} />
+                    <Route path="/SignIn" element={<SignIn />} />
                     <Route path="*" element={<Page404 />} />
+
+                    <Route path="/OfficesList" element={<OfficesList />} />
+                    <Route path="/ReservationsList" element={<ReservationsList />} />
                 </Routes>
             </main>
             <Footer />
