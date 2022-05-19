@@ -13,13 +13,15 @@
             "id": 1,
             "name": "Executive Suites",
             "address": "asd asd",
-            "price": 2000
+            "price": 2000,
+            "officeType": "personal"
         },
         {
             "id": 1,
             "name": "Traditional Space",
             "address": "dsa dsa",
-            "price": 1800
+            "price": 1800,
+            "officeType": "team"
         }
     ],
     "reservations": [
