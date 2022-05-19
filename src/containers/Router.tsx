@@ -4,6 +4,7 @@ import Footer from "../components/Footer"
 import Header from "../components/Header"
 import CircularIndeterminate from "../components/Spinner"
 import LandingPage from "../pages/LandingPage"
+import OfficeDetails from "../pages/OfficeDetails"
 import OfficesList from "../pages/OfficesList"
 import Page404 from "../pages/Page404"
 import ReservationsList from "../pages/ReservationsList"
@@ -23,9 +24,7 @@ const RouterComp = ({}: Props) => {
 
     if (isLoading) {
         return (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
                 <CircularIndeterminate />
-            </div>
         )
     }
 
@@ -41,6 +40,7 @@ const RouterComp = ({}: Props) => {
                     <Route path="*" element={<Page404 />} />
 
                     <Route path="/OfficesList" element={<OfficesList />} />
+                    <Route path="/OfficesList/:id" element={<OfficeDetails />} />
                     <Route path="/ReservationsList" element={<ReservationsList />} />
                 </Routes>
             </main>
