@@ -1,6 +1,8 @@
 import React from 'react'
 
-function OfficesList() {
+const OfficesList = () =>  {
+
+  
   return (
     <div>OfficesList</div>
   )
