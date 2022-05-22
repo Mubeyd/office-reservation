@@ -7,6 +7,8 @@ import { store } from "../state/store"
 import ErrorBoundary from "./ErrorBoundary"
 import Router from "./Router"
 import UserProvider from "./UserProvider"
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export interface Props {}
 
@@ -17,8 +19,10 @@ const Root = ({}: Props) => {
                 <UserProvider>
                     <BrowserRouter>
                         <ThemeProvider theme={theme}>
-                            <CssBaseline />
-                            <Router />
+                            <LocalizationProvider dateAdapter={AdapterMoment}>
+                                <CssBaseline />
+                                <Router />
+                            </LocalizationProvider>
                         </ThemeProvider>
                     </BrowserRouter>
                 </UserProvider>

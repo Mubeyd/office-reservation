@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { IOffice } from '../../database/IOffice';
 import { reservationFieldsValidation } from './fieldValidations/reservationYupSchema';
 
-export type FiledValueType = string | boolean | Date
+export type FiledValueType = string | number | boolean | Date | undefined
 
 interface User {
     id: string
@@ -15,10 +15,12 @@ export interface OfficeItem {
     active: boolean
 }
 
-export interface Reservation {
+export interface ReservationItem {
     id: string
     officeId: string
     userId: string
+    period: number
+    startFrom: Date | undefined
 }
 
 const userInitial: User = {
@@ -29,28 +31,30 @@ const userInitial: User = {
 export interface State {
     user: User | undefined
     office: IOffice | undefined
-    reservation: Reservation
+    reservationItem: ReservationItem
     additionalInfo: boolean
 }
 
-const initialReservation: Reservation = {
+const initialReservation: ReservationItem = {
     id:'',
     officeId: '',
     userId: '',
+    period: 1,
+    startFrom: new Date(),
 }
 
 
 const initialState: State = {
     user: undefined,
     office: undefined,
-    reservation: initialReservation,
+    reservationItem: initialReservation,
     additionalInfo: false
 }
 
 // First, create the thunk
 export const getUpdateReservation = createAsyncThunk(
     'reservation/getUpdateReservation',
-    async (reservation: Reservation, { dispatch /* , getState */ }) => {
+    async (reservation: ReservationItem, { dispatch /* , getState */ }) => {
         const isValid = await reservationFieldsValidation(reservation)
         if (!isValid) {
             throw new Error('!isValid :>> ')
@@ -61,7 +65,7 @@ export const getUpdateReservation = createAsyncThunk(
 
 export const getCreateReservation = createAsyncThunk(
     'reservation/getCreateReservation',
-    async (reservation: Reservation, { dispatch }) => {
+    async (reservation: ReservationItem, { dispatch }) => {
         const isValid = await reservationFieldsValidation(reservation)
         if (!isValid) {
             throw new Error('!isValid :>> ')
@@ -87,9 +91,9 @@ const reservationSlice = createSlice({
         },
         updateReservationField(
             state: State,
-            action: PayloadAction<{ filedName: keyof Reservation; val: FiledValueType }>
+            action: PayloadAction<{ filedName: keyof ReservationItem; val: FiledValueType }>
         ) {
-            state.reservation = { ...state.reservation, [action.payload.filedName]: action.payload.val }
+            state.reservationItem = { ...state.reservationItem, [action.payload.filedName]: action.payload.val }
         },
         setCurrentOffice(state: State, action: PayloadAction<{ office: IOffice | undefined }>) {
             state.office = action.payload.office

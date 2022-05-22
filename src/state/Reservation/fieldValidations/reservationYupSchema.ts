@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Reservation } from '../ReservationSlice'
+import { ReservationItem } from '../ReservationSlice'
 
 export const reservationYupSchema = yup.object().shape({
     id: yup.string().min(32).required(),
@@ -9,10 +9,10 @@ export const reservationYupSchema = yup.object().shape({
 
 // check validity
 
-export const reservationItemValidation = (reservationItem: Reservation) =>
+export const reservationItemValidation = (reservationItem: ReservationItem) =>
     reservationYupSchema.isValidSync({ ...reservationItem })
 
-export const reservationFieldsValidation = (reservationItem: Reservation) =>
+export const reservationFieldsValidation = (reservationItem: ReservationItem) =>
     reservationYupSchema
         .isValid({
             ...reservationItem,
@@ -22,7 +22,7 @@ export const reservationFieldsValidation = (reservationItem: Reservation) =>
         })
 
 // you can try and type cast objects to the defined schema
-export const reservationFieldsCasting = (reservationItem: Reservation) =>
+export const reservationFieldsCasting = (reservationItem: ReservationItem) =>
     reservationYupSchema.cast({
         ...reservationItem,
     })
