@@ -12,6 +12,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker"
 import React, { useCallback, useEffect, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useToggle from "react-use/lib/useToggle"
+import AlertDialog from "../components/AlertDialog/AlertDialog"
 import CircularIndeterminate from "../components/Spinner"
 import { IOffice } from "../database/IOffice"
 import { useAppDispatch } from "../hooks/useAppDispatch"
@@ -32,6 +33,7 @@ const OfficeDetails = () => {
     const reservationItem = useAppSelector((state) => state.reservationReducer.reservationItem)
     const loadingSavingReservation = useAppSelector((state) => state.reservationReducer.loading)
 
+    const [dialogOpen, toggleDialogOpen] = useToggle(false)
     const [confirmCheckBox, toggleConfirmCheckBox] = useToggle(false)
     console.log("confirmCheckBox", confirmCheckBox)
     console.log("confirmCheckBox", reservationItem.id)
@@ -62,6 +64,16 @@ const OfficeDetails = () => {
         [updateField]
     )
 
+    const goToReservationsList = useCallback(() => {
+        toggleDialogOpen()
+        navigate("/ReservationsList")
+    }, [navigate, toggleDialogOpen])
+
+    const newReservation = useCallback(() => {
+        toggleDialogOpen()
+        navigate("/OfficesList")
+    }, [navigate, toggleDialogOpen])
+
     const handleSubmit = useCallback(
         async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault()
@@ -70,11 +82,12 @@ const OfficeDetails = () => {
 
             try {
                 await dispatch(getCreateReservation(reservationItem))
+                toggleDialogOpen()
             } catch (e) {
                 console.error(e)
             }
         },
-        [dispatch, reservationItem]
+        [dispatch, reservationItem, toggleDialogOpen]
     )
 
     const isValidSync = useMemo(() => reservationItemValidation(reservationItem), [reservationItem])
@@ -147,6 +160,8 @@ const OfficeDetails = () => {
                     <Button disabled={!isValidSync || !confirmCheckBox} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Submit Reserve
                     </Button>
+
+                    <AlertDialog dialogOpen={dialogOpen} toggleDialogOpen={toggleDialogOpen} goToReservationsList={goToReservationsList} newReservation={newReservation} />
                     {/* <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="#" variant="body2">
