@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { v4 } from "uuid"
 import { IOffice } from "../../database/IOffice"
+import { PeriodType } from "../../database/IReservation"
 import { reservationFieldsValidation } from "./fieldValidations/reservationYupSchema"
 import { saveReservation } from "./helpers/saveReservation"
 
@@ -21,7 +22,9 @@ export interface ReservationItem {
     officeId: number
     userId: number
     period: number
+    cost: number
     startFrom: Date | undefined
+    periodType: PeriodType
 }
 
 const userInitial: User = {
@@ -42,7 +45,9 @@ const initialReservation: ReservationItem = {
     officeId: 1,
     userId: 1,
     period: 1,
+    cost: 1,
     startFrom: new Date(),
+    periodType: "day",
 }
 
 const initialState: State = {

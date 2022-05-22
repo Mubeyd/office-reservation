@@ -83,6 +83,15 @@
       "userId": 1,
       "period": 1,
       "startFrom": "2022-05-22T16:18:26.401Z"
+    },
+    {
+      "id": 8,
+      "officeId": 1,
+      "userId": 1,
+      "period": 1,
+      "cost": 2000,
+      "startFrom": "2022-05-26T17:34:15.000Z",
+      "periodType": "month"
     }
   ]
 }

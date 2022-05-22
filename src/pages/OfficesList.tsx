@@ -30,6 +30,7 @@ const OfficesList = () => {
 
             const allData = await getAllReservations()
             dispatch(updateReservationField({ filedName: "id", val: allData.length + 1 }))
+            dispatch(updateReservationField({ filedName: "cost", val: item.price }))
         },
         [dispatch]
     )

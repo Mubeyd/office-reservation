@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+import moment from "moment"
 import React, { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import CircularIndeterminate from "../components/Spinner"
@@ -63,7 +64,7 @@ const ReservationsList = () => {
                                     {row.id}
                                 </TableCell>
                                 <TableCell align="right">{getOfficeName(row.officeId)}</TableCell>
-                                <TableCell align="right">{row.date}</TableCell>
+                                <TableCell align="right">{moment(row.startFrom).toString()}</TableCell>
                                 <TableCell align="right">{row.period} &nbsp;({row.periodType})</TableCell>
                                 <TableCell align="right">{row.cost}</TableCell>
                             </TableRow>

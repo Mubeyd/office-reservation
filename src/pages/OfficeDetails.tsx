@@ -6,6 +6,9 @@ import Container from "@mui/material/Container"
 import CssBaseline from "@mui/material/CssBaseline"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Grid from "@mui/material/Grid"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import Select, { SelectChangeEvent } from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker"
@@ -35,8 +38,8 @@ const OfficeDetails = () => {
 
     const [dialogOpen, toggleDialogOpen] = useToggle(false)
     const [confirmCheckBox, toggleConfirmCheckBox] = useToggle(false)
-    console.log("confirmCheckBox", confirmCheckBox)
-    console.log("confirmCheckBox", reservationItem.id)
+    console.log("confirmCheckBox", reservationItem.periodType)
+    console.log("confirmCheckBox", reservationItem.cost)
 
     useEffect(() => {
         if (loading) {
@@ -63,6 +66,11 @@ const OfficeDetails = () => {
         },
         [updateField]
     )
+
+
+    const handleChange = (event: SelectChangeEvent) => {
+        updateField({ val: event.target.value, filedName: "periodType" })
+    }
 
     const goToReservationsList = useCallback(() => {
         toggleDialogOpen()
@@ -137,6 +145,15 @@ const OfficeDetails = () => {
                                 label="Period"
                                 name="period"
                             />
+                        </Grid>
+
+                        <Grid item xs={12} margin={2}>
+                            <InputLabel id="demo-simple-select-label">Period Type</InputLabel>
+                            <Select labelId="demo-simple-select-label" id="demo-simple-select" value={reservationItem.periodType} label="Age" onChange={handleChange}>
+                                <MenuItem value="day">Day</MenuItem>
+                                <MenuItem value="month">Month</MenuItem>
+                                <MenuItem value="year">Year</MenuItem>
+                            </Select>
                         </Grid>
 
                         <Grid item xs={12} margin={2}>

@@ -8,4 +8,5 @@ export interface IReservation {
     cost: number
     period: number
     periodType: PeriodType
+    startFrom: Date | undefined
 }
