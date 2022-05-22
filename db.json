@@ -14,14 +14,18 @@
             "name": "Executive Suites",
             "address": "asd asd",
             "price": 2000,
-            "officeType": "personal"
+            "officeType": "personal",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+            "imageUrl": "https://images.unsplash.com/photo-1556761175-4b46a572b786?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374"
         },
         {
             "id": 2,
             "name": "Traditional Space",
             "address": "dsa dsa",
             "price": 1800,
-            "officeType": "team"
+            "officeType": "team",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            "imageUrl": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470"
         }
     ],
     "reservations": [

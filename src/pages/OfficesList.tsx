@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import OfficeCard from "../components/OfficeCard/OfficeCard"
 import CircularIndeterminate from "../components/Spinner"
 import { IOffice } from "../database/IOffice"
 import { useUser } from "../hooks/useUser"
@@ -19,28 +20,22 @@ const OfficesList = () => {
 
     if (error) throw error
 
-    const renderRow = useCallback(({ item }: { item: IOffice }) => {
-        return (
-            <div key={item.id}>
-                <Link to={`${item.id}`}>
-                    {/* <img src={`/images/${item.image}`} alt={item.name} /> */}
-                    <h3>{item.name}</h3>
-                    <p>${item.price}</p>
-                </Link>
-            </div>
-        )
+    const onClick = useCallback((item: IOffice) => {
+        console.log("item", item.name)
+        console.log("item", item.id)
     }, [])
+
+    const renderRow = useCallback(
+        ({ item }: { item: IOffice }) => {
+            return <OfficeCard key={item.id} item={item} onClick={onClick} />
+        },
+        [onClick]
+    )
 
     return (
         <div>
             <h2>OfficesList</h2>
-            {loadingOffices ? (
-                <CircularIndeterminate />
-            ) : (
-                <div>
-                    {offices?.map((item) => renderRow({ item }))}
-                </div>
-            )}
+            {loadingOffices ? <CircularIndeterminate /> : <div>{offices?.map((item) => renderRow({ item }))}</div>}
         </div>
     )
 }

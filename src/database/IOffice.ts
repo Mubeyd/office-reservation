@@ -5,4 +5,6 @@ export interface IOffice {
     address: string
     price: number
     officeType: OfficeType
+    imageUrl: string
+    description: string
 }
