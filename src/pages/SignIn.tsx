@@ -8,7 +8,6 @@ import CssBaseline from "@mui/material/CssBaseline"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import Grid from "@mui/material/Grid"
 import Link from "@mui/material/Link"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
@@ -29,8 +28,6 @@ function Copyright(props: any) {
     )
 }
 
-const theme = createTheme()
-
 const SignIn = () => {
     const navigate = useNavigate()
 
@@ -47,7 +44,6 @@ const SignIn = () => {
     )
 
     return (
-        <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -87,7 +83,6 @@ const SignIn = () => {
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
     )
 }
 
