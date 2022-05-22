@@ -2,9 +2,10 @@ import * as yup from 'yup'
 import { ReservationItem } from '../ReservationSlice'
 
 export const reservationYupSchema = yup.object().shape({
-    id: yup.string().min(32).required(),
-    officeId: yup.string().min(32).required(),
-    userId: yup.string().min(32).required(),
+    id: yup.number().min(1).required(),
+    officeId: yup.number().min(1).required(),
+    userId: yup.number().min(1).required(),
+    period: yup.number().min(1).max(24).required(),
 })
 
 // check validity

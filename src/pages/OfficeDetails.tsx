@@ -9,15 +9,17 @@ import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
 import Typography from "@mui/material/Typography"
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker"
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import useToggle from "react-use/lib/useToggle"
 import CircularIndeterminate from "../components/Spinner"
 import { IOffice } from "../database/IOffice"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useAppSelector } from "../hooks/useAppSelector"
 import { useUser } from "../hooks/useUser"
 import useFetch from "../services/useFetch"
-import { FiledValueType, updateReservationField } from "../state/Reservation/ReservationSlice"
+import { reservationItemValidation } from "../state/Reservation/fieldValidations/reservationYupSchema"
+import { FiledValueType, getCreateReservation, setSaveLoading, updateReservationField } from "../state/Reservation/ReservationSlice"
 
 const OfficeDetails = () => {
     const { loading } = useUser()
@@ -28,18 +30,17 @@ const OfficeDetails = () => {
     const { data: office, loading: loadingOffices, error } = useFetch<IOffice>(`offices/${id}`)
 
     const reservationItem = useAppSelector((state) => state.reservationReducer.reservationItem)
+    const loadingSavingReservation = useAppSelector((state) => state.reservationReducer.loading)
 
-    console.log("reservationItem?.period", reservationItem?.startFrom)
+    const [confirmCheckBox, toggleConfirmCheckBox] = useToggle(false)
+    console.log("confirmCheckBox", confirmCheckBox)
+    console.log("confirmCheckBox", reservationItem.id)
 
     useEffect(() => {
         if (loading) {
             navigate("/SignIn")
         }
     }, [loading, navigate])
-
-    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-    }, [])
 
     const updateField = useCallback(({ val, filedName }: { val: FiledValueType; filedName: keyof typeof reservationItem }) => dispatch(updateReservationField({ filedName: filedName, val: val })), [dispatch])
 
@@ -52,15 +53,37 @@ const OfficeDetails = () => {
         [updateField]
     )
 
+    const onChangeDate = useCallback(
+        (newValue: Date | null) => {
+            if (newValue) {
+                updateField({ val: newValue, filedName: "startFrom" })
+            }
+        },
+        [updateField]
+    )
 
-    const onChangeDate = (newValue: Date | null) => {
-        if(newValue) {
-            updateField({ val: newValue, filedName: "startFrom" })
-        }
-    }
+    const handleSubmit = useCallback(
+        async (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault()
+
+            dispatch(setSaveLoading({ loading: true }))
+
+            try {
+                await dispatch(getCreateReservation(reservationItem))
+            } catch (e) {
+                console.error(e)
+            }
+        },
+        [dispatch, reservationItem]
+    )
+
+    const isValidSync = useMemo(() => reservationItemValidation(reservationItem), [reservationItem])
+
+    // const minDate = moment(new Date()).toDate();
 
     if (error) throw error
     if (loadingOffices) return <CircularIndeterminate />
+    if (loadingSavingReservation) return <CircularIndeterminate />
 
     return (
         <Container component="main" maxWidth="xs">
@@ -102,15 +125,26 @@ const OfficeDetails = () => {
                                 name="period"
                             />
                         </Grid>
+
                         <Grid item xs={12} margin={2}>
-                            <DesktopDatePicker label="Start from" inputFormat="MM/DD/YYYY" value={reservationItem.startFrom} onChange={onChangeDate} renderInput={(params) => <TextField {...params} />} />
+                            <DesktopDatePicker
+                                /* minDate={minDate} */ label="Start from"
+                                inputFormat="MM/DD/YYYY"
+                                value={reservationItem.startFrom}
+                                onChange={onChangeDate}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>
-                            <FormControlLabel control={<Checkbox value="allowExtraEmails" color="primary" />} label="I confirm for reserving this office and it is under my responsibility ." />
+                            <FormControlLabel
+                                disabled={!isValidSync}
+                                control={<Checkbox value={confirmCheckBox} onChange={toggleConfirmCheckBox} color="primary" />}
+                                label="I confirm for reserving this office and it is under my responsibility ."
+                            />
                         </Grid>
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button disabled={!isValidSync || !confirmCheckBox} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                         Submit Reserve
                     </Button>
                     {/* <Grid container justifyContent="flex-end">

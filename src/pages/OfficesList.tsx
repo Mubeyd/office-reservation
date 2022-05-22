@@ -5,8 +5,9 @@ import CircularIndeterminate from "../components/Spinner"
 import { IOffice } from "../database/IOffice"
 import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useUser } from "../hooks/useUser"
+import { getAllReservations } from "../services/reservationService"
 import useFetch from "../services/useFetch"
-import { setCurrentOffice } from "../state/Reservation/ReservationSlice"
+import { setCurrentOffice, updateReservationField } from "../state/Reservation/ReservationSlice"
 
 const OfficesList = () => {
     const { loading } = useUser()
@@ -24,8 +25,11 @@ const OfficesList = () => {
     if (error) throw error
 
     const onClick = useCallback(
-        (item: IOffice) => {
-            dispatch(setCurrentOffice({ office: item }))
+        async (item: IOffice) => {
+            dispatch(setCurrentOffice({ currentOffice: item }))
+
+            const allData = await getAllReservations()
+            dispatch(updateReservationField({ filedName: "id", val: allData.length + 1 }))
         },
         [dispatch]
     )
