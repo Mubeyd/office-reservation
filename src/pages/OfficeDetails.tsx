@@ -28,7 +28,7 @@ const OfficeDetails = () => {
     const dispatch = useAppDispatch()
     const { id } = useParams()
 
-    const { data: office, loading: loadingOffices, error } = useFetch<IOffice>(`offices/${id}`)
+    const { data: office, loading: loadingOffice, error } = useFetch<IOffice>(`offices/${id}`)
 
     const reservationItem = useAppSelector((state) => state.reservationReducer.reservationItem)
     const loadingSavingReservation = useAppSelector((state) => state.reservationReducer.loading)
@@ -95,7 +95,7 @@ const OfficeDetails = () => {
     // const minDate = moment(new Date()).toDate();
 
     if (error) throw error
-    if (loadingOffices) return <CircularIndeterminate />
+    if (loadingOffice) return <CircularIndeterminate />
     if (loadingSavingReservation) return <CircularIndeterminate />
 
     return (
@@ -162,13 +162,6 @@ const OfficeDetails = () => {
                     </Button>
 
                     <AlertDialog dialogOpen={dialogOpen} toggleDialogOpen={toggleDialogOpen} goToReservationsList={goToReservationsList} newReservation={newReservation} />
-                    {/* <Grid container justifyContent="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid> */}
                 </Box>
             </Box>
         </Container>
