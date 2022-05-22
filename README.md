@@ -1,5 +1,7 @@
 # Getting Started with TempOffice Reservation App
 
+This project has aims to serve people and organizations to rent or reserve offices for short or long term usage.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

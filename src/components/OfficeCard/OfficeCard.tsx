@@ -22,7 +22,7 @@ export default function MediaCard(props: Props) {
 
     return (
         <Card sx={{ maxWidth: 345, margin: 4 }}>
-            <CardMedia component="img" height="140" src={item.imageUrl} alt="green iguana" />
+            <CardMedia component="img" height="140" src={item.imageUrl} alt={item.name} />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {item.name}
