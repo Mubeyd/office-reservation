@@ -15,6 +15,7 @@ interface Props {
 
 export default function MediaCard(props: Props) {
     const { item, onClick } = props
+    
     const onSelect = useCallback(() => {
         onClick(item)
     }, [item, onClick])

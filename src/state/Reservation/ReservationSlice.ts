@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { v4 } from 'uuid';
+import { IOffice } from '../../database/IOffice';
 import { reservationFieldsValidation } from './fieldValidations/reservationYupSchema';
 
 export type FiledValueType = string | boolean | Date
@@ -9,7 +10,7 @@ interface User {
     active: boolean
 }
 
-export interface Office {
+export interface OfficeItem {
     id: string
     active: boolean
 }
@@ -27,7 +28,7 @@ const userInitial: User = {
 
 export interface State {
     user: User | undefined
-    office: Office | undefined
+    office: IOffice | undefined
     reservation: Reservation
     additionalInfo: boolean
 }
@@ -90,8 +91,8 @@ const reservationSlice = createSlice({
         ) {
             state.reservation = { ...state.reservation, [action.payload.filedName]: action.payload.val }
         },
-        setCurrentOffice(state: State, action: PayloadAction<{ user: Office | undefined }>) {
-            state.user = action.payload.user
+        setCurrentOffice(state: State, action: PayloadAction<{ office: IOffice | undefined }>) {
+            state.office = action.payload.office
         },
         updateReservation(state: State, action: PayloadAction<{ id: string }>) {
             return

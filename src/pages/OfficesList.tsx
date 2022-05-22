@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom"
 import OfficeCard from "../components/OfficeCard/OfficeCard"
 import CircularIndeterminate from "../components/Spinner"
 import { IOffice } from "../database/IOffice"
+import { useAppDispatch } from "../hooks/useAppDispatch"
 import { useUser } from "../hooks/useUser"
 import useFetch from "../services/useFetch"
+import { setCurrentOffice } from "../state/Reservation/ReservationSlice"
 
 const OfficesList = () => {
-    const { localUser, loading } = useUser()
+    const { loading } = useUser()
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const { data: offices, loading: loadingOffices, error } = useFetch<IOffice[]>("offices")
 
@@ -20,10 +23,12 @@ const OfficesList = () => {
 
     if (error) throw error
 
-    const onClick = useCallback((item: IOffice) => {
-        console.log("item", item.name)
-        console.log("item", item.id)
-    }, [])
+    const onClick = useCallback(
+        (item: IOffice) => {
+            dispatch(setCurrentOffice({ office: item }))
+        },
+        [dispatch]
+    )
 
     const renderRow = useCallback(
         ({ item }: { item: IOffice }) => {

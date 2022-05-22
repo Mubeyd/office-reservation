@@ -12,6 +12,7 @@
         {
             "id": 1,
             "name": "Executive Suites",
+            "active": true,
             "address": "asd asd",
             "price": 2000,
             "officeType": "personal",
@@ -21,6 +22,7 @@
         {
             "id": 2,
             "name": "Traditional Space",
+            "active": true,
             "address": "dsa dsa",
             "price": 1800,
             "officeType": "team",

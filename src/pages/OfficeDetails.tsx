@@ -19,17 +19,13 @@ const OfficeDetails = () => {
     }, [loading, navigate])
 
     if (error) throw error
+    if (loadingOffices) return <CircularIndeterminate />
 
     return (
         <div>
-            <div>OfficeDetails</div>
-            {loadingOffices ? (
-                <CircularIndeterminate />
-            ) : (
-                <div>
-                    {office?.name}
-                </div>
-            )}
+            <h2>Office Details</h2>
+            <h3>Reserve now</h3>
+            <div>{office?.name}</div>
         </div>
     )
 }
