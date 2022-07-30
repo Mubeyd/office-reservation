@@ -26,6 +26,7 @@ export default function useFetch<T>(url:string)  {
       }
     }
     init();
+    console.log('111 :>> ', 111);
 
     return () => {
       isMounted.current = false;
