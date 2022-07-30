@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { baseUrl } from "../constants/constants";
 
 
@@ -26,7 +26,6 @@ export default function useFetch<T>(url:string)  {
       }
     }
     init();
-    console.log('111 :>> ', 111);
 
     return () => {
       isMounted.current = false;
